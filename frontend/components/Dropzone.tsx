@@ -84,6 +84,7 @@ export default function Dropzone() {
     // Check file size (4MB limit for Vercel Serverless)
     if (selectedFile.size > 4 * 1024 * 1024) {
       setError("Ukuran file melebihi batas maksimum 4MB (Batas Serverless Vercel).")
+      // Do not preview/set the file if it exceeds size
       return
     }
 
@@ -116,7 +117,12 @@ export default function Dropzone() {
     e.stopPropagation()
     setDragActive(false)
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-      handleFileSelect(e.dataTransfer.files[0])
+      const droppedFile = e.dataTransfer.files[0]
+      if (droppedFile.size > 4 * 1024 * 1024) {
+        setError("Ukuran file melebihi batas maksimum 4MB (Batas Serverless Vercel).")
+        return
+      }
+      handleFileSelect(droppedFile)
     }
   }
 
@@ -206,41 +212,54 @@ export default function Dropzone() {
           </p>
 
           {!file ? (
-            <div
-              onDragEnter={handleDragEnter}
-              onDragLeave={handleDragLeave}
-              onDragOver={handleDragOver}
-              onDrop={handleDrop}
-              onClick={triggerFileInput}
-              className={`border-2 border-dashed transition-all duration-300 rounded-2xl p-12 flex flex-col items-center justify-center cursor-pointer min-h-[300px] ${
-                dragActive 
-                  ? "border-blue-500 bg-blue-50/60 scale-[1.01] shadow-lg shadow-blue-500/10" 
-                  : "border-zinc-300 bg-zinc-50/50 hover:bg-zinc-50 hover:border-zinc-400"
-              }`}
-            >
-              <input
-                type="file"
-                ref={fileInputRef}
-                onChange={(e) => e.target.files?.[0] && handleFileSelect(e.target.files[0])}
-                className="hidden"
-                accept="image/*"
-              />
-              <div className={`h-16 w-16 rounded-2xl border flex items-center justify-center mb-6 transition-colors duration-300 ${
-                dragActive 
-                  ? "bg-blue-600/10 border-blue-500/30 text-blue-600" 
-                  : "bg-blue-600/5 border-blue-500/10 text-blue-600"
-              }`}>
-                <UploadCloud className="h-8 w-8" />
+            <div className="space-y-4">
+              <div
+                onDragEnter={handleDragEnter}
+                onDragLeave={handleDragLeave}
+                onDragOver={handleDragOver}
+                onDrop={handleDrop}
+                onClick={triggerFileInput}
+                className={`border-2 border-dashed transition-all duration-300 rounded-2xl p-12 flex flex-col items-center justify-center cursor-pointer min-h-[300px] ${
+                  dragActive 
+                    ? "border-blue-500 bg-blue-50/60 scale-[1.01] shadow-lg shadow-blue-500/10" 
+                    : "border-zinc-300 bg-zinc-50/50 hover:bg-zinc-50 hover:border-zinc-400"
+                }`}
+              >
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  onChange={(e) => e.target.files?.[0] && handleFileSelect(e.target.files[0])}
+                  className="hidden"
+                  accept="image/*"
+                />
+                <div className={`h-16 w-16 rounded-2xl border flex items-center justify-center mb-6 transition-colors duration-300 ${
+                  dragActive 
+                    ? "bg-blue-600/10 border-blue-500/30 text-blue-600" 
+                    : "bg-blue-600/5 border-blue-500/10 text-blue-600"
+                }`}>
+                  <UploadCloud className="h-8 w-8" />
+                </div>
+                <p className="text-zinc-900 font-semibold text-lg text-center mb-2">
+                  {dragActive ? "Lepaskan gambar Anda di sini" : "Seret & lepaskan gambar di sini"}
+                </p>
+                <p className="text-zinc-500 text-xs text-center max-w-sm mb-4">
+                  Mendukung PNG, JPG, JPEG, WEBP, TIFF, BMP, HEIC (Maksimal 4MB / Batas Serverless Vercel)
+                </p>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-100 border border-zinc-200 text-xs text-zinc-600 font-medium">
+                  <kbd className="font-sans font-bold text-zinc-500">Ctrl</kbd> + <kbd className="font-sans font-bold text-zinc-500">V</kbd> untuk Paste
+                </div>
               </div>
-              <p className="text-zinc-900 font-semibold text-lg text-center mb-2">
-                {dragActive ? "Lepaskan gambar Anda di sini" : "Seret & lepaskan gambar di sini"}
-              </p>
-              <p className="text-zinc-500 text-xs text-center max-w-sm mb-4">
-                Mendukung PNG, JPG, JPEG, WEBP, TIFF, BMP, HEIC (Maksimal 4MB / Batas Serverless Vercel)
-              </p>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-100 border border-zinc-200 text-xs text-zinc-600 font-medium">
-                <kbd className="font-sans font-bold text-zinc-500">Ctrl</kbd> + <kbd className="font-sans font-bold text-zinc-500">V</kbd> untuk Paste
-              </div>
+
+              {/* Error Message when no file is selected but validation failed */}
+              {error && (
+                <div className="p-4 rounded-xl bg-red-500/5 border border-red-500/20 text-red-700 flex items-start gap-3">
+                  <ShieldAlert className="h-5 w-5 shrink-0 mt-0.5" />
+                  <div>
+                    <span className="font-bold block">Gagal Mengunggah</span>
+                    <span className="text-sm mt-0.5 block">{error}</span>
+                  </div>
+                </div>
+              )}
             </div>
           ) : (
             <div className="space-y-8">
