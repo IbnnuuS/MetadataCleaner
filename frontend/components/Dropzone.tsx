@@ -34,9 +34,8 @@ export default function Dropzone() {
 
     if (loading && !result) {
       const fetchQueueStatus = async () => {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"
         try {
-          const res = await fetch(`${apiUrl}/api/queue-status`)
+          const res = await fetch("/api/queue-status")
           if (res.ok) {
             const data = await res.json()
             setQueueCount(data.active_jobs)
@@ -133,11 +132,8 @@ export default function Dropzone() {
     const formData = new FormData()
     formData.append("file", file)
 
-    // Base URL config (Port 8080)
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"
-
     try {
-      const res = await fetch(`${apiUrl}/api/clean?quality=${quality}`, {
+      const res = await fetch(`/api/clean?quality=${quality}`, {
         method: "POST",
         body: formData,
       })
