@@ -6,7 +6,7 @@ Aplikasi SaaS modern berbasis web yang dirancang untuk mendeteksi, menampilkan, 
 
 ---
 
-## 🚀 Fitur Utama
+## Fitur Utama
 1. **Pembersihan Metadata EXIF/GPS/IPTC/XMP**: Menghapus seluruh tag sensitif seperti lokasi koordinat GPS, jenis kamera/lensa, author, copyright, dsb.
 2. **Scanner Metadata AI**: Mendeteksi jika gambar dibuat oleh generator AI populer (Midjourney, Stable Diffusion, DALL-E, Google Gemini, dll).
 3. **Verifikasi Hasil**: Melakukan scanning ulang instan pasca-pembersihan untuk membuktikan kebersihan data secara jujur.
@@ -15,7 +15,7 @@ Aplikasi SaaS modern berbasis web yang dirancang untuk mendeteksi, menampilkan, 
 
 ---
 
-## 🛠️ Teknologi yang Digunakan
+## Teknologi yang Digunakan
 
 ### Frontend
 - **Framework**: Next.js 15 (App Router, React 19)
@@ -31,7 +31,7 @@ Aplikasi SaaS modern berbasis web yang dirancang untuk mendeteksi, menampilkan, 
 
 ---
 
-## 📁 Struktur Proyek
+## Struktur Proyek
 
 ```text
 ├── backend/
@@ -57,7 +57,7 @@ Aplikasi SaaS modern berbasis web yang dirancang untuk mendeteksi, menampilkan, 
 
 ---
 
-## 💻 Panduan Instalasi Lokal
+## Panduan Instalasi Lokal
 
 ### 1. Prasyarat
 - Python 3.9+ terinstal.
@@ -103,7 +103,7 @@ Aplikasi SaaS modern berbasis web yang dirancang untuk mendeteksi, menampilkan, 
 
 ---
 
-## ☁️ Panduan Deployment ke Cloud Production
+## Panduan Deployment ke Cloud Production
 
 ### A. Deploy Backend ke Railway
 1. Buat project baru di **Railway.app**.
