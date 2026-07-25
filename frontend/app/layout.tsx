@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "AI Metadata Cleaner - Hapus Metadata Gambar Secara Instan & Aman",
     description: "Hapus EXIF, GPS, IPTC, XMP, dan metadata lainnya dari gambar secara instan tanpa mengurangi kualitas gambar.",
-    url: "http://localhost:3000",
+    url: "https://aimetadata-cleaner.vercel.app",
     siteName: "AI Metadata Cleaner",
     images: [
       {
@@ -33,7 +33,10 @@ export const metadata: Metadata = {
     follow: true,
   },
   alternates: {
-    canonical: "http://localhost:3000",
+    canonical: "https://aimetadata-cleaner.vercel.app",
+  },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "google_verification_placeholder",
   },
   icons: {
     icon: [
