@@ -43,7 +43,7 @@ def get_mime_and_extension(data: bytes, filename: str) -> Tuple[Optional[str], O
 
 def validate_image(data: bytes, filename: str) -> Tuple[bool, str]:
     if len(data) > settings.MAX_CONTENT_LENGTH:
-        return False, "Ukuran file melebihi batas maksimum 15MB."
+        return False, "Ukuran file melebihi batas maksimum 4MB (Batas Serverless Vercel)."
     
     if len(data) == 0:
         return False, "File gambar kosong."

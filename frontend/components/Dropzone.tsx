@@ -81,9 +81,9 @@ export default function Dropzone() {
     setError(null)
     setResult(null)
     
-    // Check file size (15MB limit)
-    if (selectedFile.size > 15 * 1024 * 1024) {
-      setError("Ukuran file melebihi batas maksimum 15MB.")
+    // Check file size (4MB limit for Vercel Serverless)
+    if (selectedFile.size > 4 * 1024 * 1024) {
+      setError("Ukuran file melebihi batas maksimum 4MB (Batas Serverless Vercel).")
       return
     }
 
@@ -236,7 +236,7 @@ export default function Dropzone() {
                 {dragActive ? "Lepaskan gambar Anda di sini" : "Seret & lepaskan gambar di sini"}
               </p>
               <p className="text-zinc-500 text-xs text-center max-w-sm mb-4">
-                Mendukung PNG, JPG, JPEG, WEBP, TIFF, BMP, HEIC (Maksimal 15MB)
+                Mendukung PNG, JPG, JPEG, WEBP, TIFF, BMP, HEIC (Maksimal 4MB / Batas Serverless Vercel)
               </p>
               <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-100 border border-zinc-200 text-xs text-zinc-600 font-medium">
                 <kbd className="font-sans font-bold text-zinc-500">Ctrl</kbd> + <kbd className="font-sans font-bold text-zinc-500">V</kbd> untuk Paste
